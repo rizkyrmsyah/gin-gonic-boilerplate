@@ -8,6 +8,9 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/rizkyrmsyah/gin-gonic-boilerplate/cmd/database"
 	"github.com/rizkyrmsyah/gin-gonic-boilerplate/config"
+	"github.com/rizkyrmsyah/gin-gonic-boilerplate/repository/mysql"
+	transportHTTP "github.com/rizkyrmsyah/gin-gonic-boilerplate/transport/http"
+	"github.com/rizkyrmsyah/gin-gonic-boilerplate/usecase"
 )
 
 func main() {
@@ -24,13 +27,13 @@ func main() {
 	defer db.Close()
 
 	// call repository
-	//
+	example := mysql.NewUserRepository(db)
 
 	//call usecase
-	//
+	exampleUsecase := usecase.NewExample(example)
 
 	//call transport
-	//
+	transportHTTP.HttpExample(r, exampleUsecase)
 
 	// run the service
 	r.Run(":" + strconv.Itoa(config.AppPort))
